@@ -44,13 +44,14 @@ top_10_countries <- country_data %>%
 # Make a map --------------------------------------------------------------
 
 shapefile <- map_data("world")
-# Get iso3 codes
+
+# Get iso3 codes and join on our data
 shapefile <- shapefile %>% 
   mutate(Country.of.origin..ISO. = countrycode(region, origin = 'country.name', destination = 'iso3c')) %>% 
   left_join(country_data, by = "Country.of.origin..ISO.")
 
-
-ggplot(data = shapefile) +
+# Create the map
+asylum_map <- ggplot(data = shapefile) +
   geom_polygon(
     mapping = aes(x = long, y = lat, group = group, fill = Asylum.seekers)
     ) +
