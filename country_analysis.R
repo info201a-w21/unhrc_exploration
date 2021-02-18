@@ -3,7 +3,7 @@ country_analysis <- function(iso3) {
   country_name <- countrycode(iso3, origin = 'iso3c', destination = 'country.name')
   
   country_data <- data %>% 
-    filter(Country.of.asylum..ISO. == country_of_interest)
+    filter(Country.of.asylum..ISO. == iso3)
   
   # High level questions ----------------------------------------------------
   
