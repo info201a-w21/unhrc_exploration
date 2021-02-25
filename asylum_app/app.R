@@ -1,8 +1,11 @@
 # Usually have this in a different file, worry about that wednesday
 # Load data and shapefile
 library(tidyverse)
+library(plotly)
 library(countrycode)
-all_data <- read.csv("data/population.csv", skip = 14)
+all_data <- read.csv("data/population.csv", skip = 14) %>% 
+    filter(Year == max(Year, na.rm = T)) %>% 
+    select(contains("Country"), Asylum.seekers)
 shapefile <- map_data("world")
 
 
@@ -29,7 +32,8 @@ server <- function(input, output) {
         country_name <- countrycode(iso3, origin = 'iso3c', destination = 'country.name')
         
         country_data <- all_data %>% 
-            filter(Country.of.asylum..ISO. == iso3)
+            filter(Country.of.asylum..ISO. == iso3) %>% 
+            select(Country.of.origin..ISO., Asylum.seekers)
         
         country_shapefile <- shapefile %>% 
             mutate(Country.of.origin..ISO. = countrycode(region, origin = 'country.name', destination = 'iso3c')) %>% 
@@ -42,6 +46,7 @@ server <- function(input, output) {
             labs(title = paste("Number of People Seeking Asylum in", country_name), 
                  x = "", y = "", fill = "Num. People") +
             theme_minimal()
+            
         
         return(asylum_map)
     })
