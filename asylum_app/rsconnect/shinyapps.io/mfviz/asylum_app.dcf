@@ -1,0 +1,13 @@
+name: asylum_app
+title: asylum_app
+username:
+account: mfviz
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3717184
+bundleId: 4287116
+url: https://mfviz.shinyapps.io/asylum_app/
+when: 1614629092.43532
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: analysis.R|data/footnotes.csv
